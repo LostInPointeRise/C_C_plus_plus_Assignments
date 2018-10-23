@@ -20,30 +20,25 @@
 */
 
 int main(int argc, char const *argv[])
-{
-    printf("char %lu \n", sizeof(char));
+{ 
 
-    printf("short %lu \n", sizeof(short));
+    printf("char %lu\n", sizeof(char));
 
-    printf("int %lu \n", sizeof(int));
+    printf("short %lu\n", sizeof(short));
 
-    printf("char %lu \n", sizeof(char));
+    printf("int %lu\n", sizeof(int));
 
-    printf("short %lu \n", sizeof(short));
+    printf("long %lu\n", sizeof(long));
 
-    printf("int %lu \n", sizeof(int));
+    printf("long long %lu\n", sizeof(long long));
 
-    printf("long %lu \n", sizeof(long));
+    printf("float %lu\n", sizeof(float));
 
-    printf("long long %lu \n", sizeof(long long));
+    printf("double %lu\n", sizeof(double));
 
-    printf("float %lu \n", sizeof(float));
+    printf("long double %lu\n", sizeof(long double));
 
-    printf("double %lu \n", sizeof(double));
-
-    printf("long double %lu \n", sizeof(long double));
-
-    printf("pointer %lu \n", sizeof(void *));
+    printf("pointer %lu\n", sizeof(void *));
  
     return 0;
 }

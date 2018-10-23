@@ -24,15 +24,16 @@ int checkEndOfUserInputByPointerArithmetic(const char *userInput)
     // init ptr to user input
     // printf("%s n", userInput);
     char* ptr = &((char*) userInput) [0]; 
-    do{
-   
-        ptr++;
-        
-    } 
+    
     // loop will count every sign till the end, 
     // is reached
-    while(!( *ptr == '\0'));
- 
+    while(!( *ptr == '\0')){
+
+        ptr++;        
+    } 
+  
+
+
     // we dtermine the length of the input with ponter arithmetic
     // we substract the init adress, from the adress of the "input-end".. 
 
