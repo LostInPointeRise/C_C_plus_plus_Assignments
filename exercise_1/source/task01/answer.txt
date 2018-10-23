@@ -1,0 +1,33 @@
+platform: Mac 
+compiler: Apple LLVM version 9.1.0 (clang-902.0.39.2)
+
+char 1
+short 2
+int 4
+char 1
+short 2
+int 4
+long 8
+long long 8
+float 4
+double 8
+long double 16
+pointer 8
+
+################################################################
+
+platform: Debian
+compiler: gcc 5.5
+
+char 1
+short 2
+int 4
+char 1
+short 2
+int 4
+long 8
+long long 8
+float 4
+double 8
+long double 16
+pointer 8

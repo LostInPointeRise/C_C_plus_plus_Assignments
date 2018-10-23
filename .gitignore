@@ -1,0 +1,16 @@
+# ignore docs
+
+documents/
+
+#ignore abstract 
+
+abstract/
+
+# ignore binaries 
+
+*.o
+*.bin
+
+# ignore others
+
+.DS_Store

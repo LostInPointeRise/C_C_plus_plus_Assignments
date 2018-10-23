@@ -1,0 +1,42 @@
+
+The array 
+
+int cube1[3][2][4] = { {{1,2,3,4}}, {{2,3}, {4,6,8,10}}, {{3,4,5,6}, {6,8,10}} };
+
+Got the following internal storage of its elements:
+
+currentCubeElement[0][0][0] at 0x7ffee0f43850 , got the value 1
+currentCubeElement[0][0][1] at 0x7ffee0f43854 , got the value 2
+currentCubeElement[0][0][2] at 0x7ffee0f43858 , got the value 3
+currentCubeElement[0][0][3] at 0x7ffee0f4385c , got the value 4
+currentCubeElement[0][1][0] at 0x7ffee0f43860 , got the value 0
+currentCubeElement[0][1][1] at 0x7ffee0f43864 , got the value 0
+currentCubeElement[0][1][2] at 0x7ffee0f43868 , got the value 0
+currentCubeElement[0][1][3] at 0x7ffee0f4386c , got the value 0
+currentCubeElement[1][0][0] at 0x7ffee0f43870 , got the value 2
+currentCubeElement[1][0][1] at 0x7ffee0f43874 , got the value 3
+currentCubeElement[1][0][2] at 0x7ffee0f43878 , got the value 0
+currentCubeElement[1][0][3] at 0x7ffee0f4387c , got the value 0
+currentCubeElement[1][1][0] at 0x7ffee0f43880 , got the value 4
+currentCubeElement[1][1][1] at 0x7ffee0f43884 , got the value 6
+currentCubeElement[1][1][2] at 0x7ffee0f43888 , got the value 8
+currentCubeElement[1][1][3] at 0x7ffee0f4388c , got the value 10
+currentCubeElement[2][0][0] at 0x7ffee0f43890 , got the value 3
+currentCubeElement[2][0][1] at 0x7ffee0f43894 , got the value 4
+currentCubeElement[2][0][2] at 0x7ffee0f43898 , got the value 5
+currentCubeElement[2][0][3] at 0x7ffee0f4389c , got the value 6
+currentCubeElement[2][1][0] at 0x7ffee0f438a0 , got the value 6
+currentCubeElement[2][1][1] at 0x7ffee0f438a4 , got the value 8
+currentCubeElement[2][1][2] at 0x7ffee0f438a8 , got the value 10
+currentCubeElement[2][1][3] at 0x7ffee0f438ac , got the value 0
+
+
+ We can oberserve , that the compiler maps the 
+ given elements to some linear orde in the memory. 
+
+ He groups the "inner" (rightmost  [index0][index1][array]) arrays , to the ones 
+ to the left. 
+
+ Because cubes1, does not use the whole memory, given by the compiler 
+ we can observerve some empty spaces "zeros". 
+
