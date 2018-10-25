@@ -1,0 +1,22 @@
+/**
+    Read and understand the “right-left rule” https://tinyurl.com/ya8zpyxt
+    
+    What’s x in the following declarations?Apply the rules to everythingin the declaration.
+*/
+
+
+-> int (*x[]) (int, int)
+
+identifier x is , array of pointer to  function returning int
+
+->   int*(*x(int*))()
+
+identifier x is,  function returning  pointer to function returning pointer to int   
+ 
+-> int *(*(*x())[])
+
+identifier x is , functon returning pointer to array of pointer to pointer to int 
+ 
+-> (int)int (*x)(int *(*)(int))
+
+identifier x is , pointer to function returning int 

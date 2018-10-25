@@ -14,3 +14,4 @@ abstract/
 # ignore others
 
 .DS_Store
+*.zip
