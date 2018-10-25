@@ -1,0 +1,18 @@
+The function scanf (int scanf(const char *format, ...)) , 
+reads some user input in a predefined format, and saves 
+the certain input, to match the format. 
+
+The function returns the ammount 
+of parameters that are correctly read, but it does not 
+understand if a user did put more elements, than expected. 
+
+Example: 
+
+Enter <int> <op> <int>, single '0' to exit: 1 + 2 + 3
+1 + 2 = 3
+
+Enter <int> <op> <int>, single '0' to exit: 1 + 2 + 3 + 4 
+1 + 2 = 3 // shall be invalid input
+
+Enter <int> <op> <int>, single '0' to exit: 1 + 2 + 3 4
+1 + 2 = 3 // shall be invalid input
