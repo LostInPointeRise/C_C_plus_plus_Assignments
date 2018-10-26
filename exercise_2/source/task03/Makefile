@@ -1,8 +1,8 @@
 CC = gcc
-CFLAGS = -Wmissing-prototypes
+CFLAGS = -w
 OBJS = read_from_command_line.o solve_expression.o check_if_operator_match_expected_ones.o check_parameter_ammount.o calculator.o calc.o
 
-
+ 
 all: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o calc
 

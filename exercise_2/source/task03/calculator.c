@@ -1,51 +1,35 @@
 #include "stdio.h"
 #include "constants.h"
 #include "calculator.h" 
-
-const char USAGE[] = "Enter <int> <op> <int>, single '0' to exit:";
-
-const char EXPECTEDINPUT[] = "%d %c %d"; 
  
-int doCalculation(int argc, char const *argv[]){
+void doCalculation( char const *argv[]){
 
-    int first_operand = 42;   
-    int *ptr_to_first_operand = &first_operand;
- 
-    char operator = 'o';
-    char  *ptr_to_operator = &operator;
-
-    int second_operand = 42; 
-    int *ptr_to_second_operand = &second_operand;
-
-    // at first print tbe usage 
+    
+    // at first print the usage 
     printf("%s ", USAGE);
 
     // after the user has put something... 
 
     // we read the parameter from the console
     char* expressionToSolve = readFromCommandLine();
-
- 
-   /*   int ammount_of_expression_parameters = sscanf("%d %c %d" , expressionToSolve, ptr_to_first_operand,  ptr_to_operator , ptr_to_second_operand ); 
-    
+   
     // and verify , if the number of parameter match the expected one
-    if( checkParameterAmmount(ammount_of_expression_parameters) == CORRECT){
- 
+    if( checkParameterAmmount(expressionToSolve) == CORRECT){
+   
         // now we try to verify, if the operator is truly an operator 
-        if(checkIfOperatorMatchTheExpectedOnes(*ptr_to_operator)){
+        if(checkIfOperatorMatchTheExpectedOnes(expressionToSolve) == CORRECT){
  
-            solveExpression(*ptr_to_first_operand,  *ptr_to_operator , *ptr_to_second_operand);
+            // after the data is verified , we will start to solve the given expression
+            solveExpression(expressionToSolve);
         }
         else{
-                // if not return false   
-                return 0; 
+            // if the operator symbol is wrong 
+            // we will ask again for input   
         } 
     }
     else{
-            // if not return false   
-           return 0; 
+            // if the ammount of parameter is wrong, 
+            // we will ask again for input
     }
-    */
-
-    return 0;
+     
 }
