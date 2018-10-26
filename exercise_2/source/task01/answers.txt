@@ -1,0 +1,112 @@
+
+
+ /* scope1.c */
+ 
+#include <stdio.h>
+ 
+int globalvar = 1;
+ 
+int main() {  
+    modtest();
+    printf("globalvar = %d\n", globalvar);
+}
+
+/* scope2.c */
+
+float globalvar;
+
+void modtest(void) {
+    globalvar = 2;
+}
+ 
+
+###########################
+
+At first , one could assume,
+"printf("globalvar = %d\n", globalvar);", will print "globalvar = 2", 
+but it does print "globalvar = 1073741824".... 
+
+The cause of this scenario, is a scope violation.
+
+The variable gloablvar , gets redeclared, 
+to "float globalvar" , and defined with "2". 
+
+The long number is the "decimal" representation 
+of the (float) gloablvar. 
+
+This happens in the linking state, while 
+creating an executable. 
+
+If we take a look at the man page of ld, we can find 
+this: 
+
+"
+        int i = 1;
+        A definition, which goes in the initialized data section of the output file.
+
+        extern int i;
+        An undefined reference, which does not allocate space. There must be either 
+        a definition or a common symbol for the variable somewhere.
+
+        int i;
+        A common symbol. If there are only (one or more) common symbols for a variable, 
+        it goes in the uninitialized data area of the output file. 
+        
+        The linker merges multiple common symbols for the same variable into a single symbol. 
+        If they are of different sizes, it picks the largest size. 
+        The linker turns a common symbol into a declaration, 
+        if there is a definition of the same variable.
+"
+
+int globalvar = 1, is a definnition, that gets 
+"redeclared", cause globalvar got another common symbols, 
+with a larger size float globalvar. 
+
+We can not prevent this , but 
+we can let the linker print some 
+warning about this, with following 
+option:
+
+    "-Wl,--warn-common"
+
+Trace: 
+
+Step 1/5 : FROM gcc:5.5
+ ---> 348918cfb33f
+Step 2/5 : COPY /exercise_2/source/task01 /task01
+ ---> e9ba5ab1e6cb
+Step 3/5 : WORKDIR /task01
+ ---> Running in 7bd554c49468
+Removing intermediate container 7bd554c49468
+ ---> 891e38333b4d
+Step 4/5 : RUN make warning
+ ---> Running in bdc266348b09
+gcc -w -c scope2.c
+gcc -w -c scope1.c
+
+gcc  -Wl,--warn-common -o scope scope1.o scope2.o
+
+
+scope2.o: warning: common of `globalvar' overridden by definition
+scope1.o: warning: defined here
+
+And we get some warning.... 
+
+With the option 
+
+    "-fno-common"
+
+we can at least throw some error, and prevent the creation
+of some executable 
+
+gcc -w -c scope2.c
+gcc -w -c scope1.c
+gcc  -Wl,-fno-common -o scope scope1.o scope2.o
+/usr/bin/ld: -f may not be used without -shared
+collect2: error: ld returned 1 exit status
+make: *** [no_common] Error 1
+Makefile:13: recipe for target 'no_common' failed
+The command '/bin/sh -c make no_common' returned a non-zero code: 2
+
+
+
