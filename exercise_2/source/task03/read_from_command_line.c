@@ -1,11 +1,10 @@
-#include "stdio.h" 
-#include "constants.h"
+#include "stdio.h"  
 #include "calculator.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
 
-#define BUFFERSIZE 10
+#define BUFFERSIZE 2
 
 char* readFromCommandLine(){
 
@@ -19,6 +18,7 @@ char* readFromCommandLine(){
      * 
     */
 
+    // the builded expression that will bre returned to the client
     char *expression  = calloc(BUFFERSIZE  , sizeof(char));
    
     // buffer that teporatily stores read characters 
@@ -33,16 +33,22 @@ char* readFromCommandLine(){
      * so if we check for some '\0', at the end of the read buffer, 
      * we can assert the end of the user input 
     */
-    while( fgets(buffer, BUFFERSIZE , stdin)[BUFFERSIZE - 1] != '\0') 
-    {
+  
+   
+    while( *fgets(buffer, BUFFERSIZE , stdin) != '\n') 
+    { 
         // we resize the length of the final expression, to the 
         // ammount of read characters, so it can fit the command line input 
-        expression = realloc( expression, strlen(expression)+strlen(buffer) );
-        
+        expression = realloc( expression, strlen(expression) + 1 +strlen(buffer) );
+    
+        // add the read buffer to the expression
         strncat( expression, buffer, BUFFERSIZE);   
-        fflush(stdin);
+
     } 
 
-      printf("expression is %s \n", buffer);
+    // flush the input, to prevent next inputs , from 
+    // interferences , caused by its predeccored values 
+    fflush(stdin);
+     
     return expression;
 }

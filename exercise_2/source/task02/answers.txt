@@ -7,16 +7,19 @@
 
 -> int (*x[]) (int, int)
 
-identifier x is , array of pointer to  function returning int
+identifier x is an array of pointers  to a function, that is expecting two ints returning to int
 
 ->   int*(*x(int*))()
 
-identifier x is,  function returning  pointer to function returning pointer to int   
+identifier x is a  function expecting a pointer to int that is returning a pointer to function returning pointer to int   
  
--> int *(*(*x())[])
+-> int *(*(*x())[])(int)
 
-identifier x is , functon returning pointer to array of pointer to pointer to int 
+identifier x is , function returning to pointer to array of pointer to  function expecting an int and returning a pointer to int
  
 -> (int)int (*x)(int *(*)(int))
 
-identifier x is , pointer to function returning int 
+identifier x is a pointer to  a function that returns an int. 
+
+The function is expecting a pointer to a funtion expecting an int 
+that is returning a pointer to an int

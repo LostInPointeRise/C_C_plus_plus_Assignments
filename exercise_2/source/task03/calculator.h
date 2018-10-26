@@ -12,28 +12,25 @@
  * as <op> and executes this calculation 
  * 
  * with only integer types (division will round au-tomatically).
- * 
- * @param: (int), argc describes the number of command line arguments 
- * @param: (char const *argv[]), the expression that forms a calculation request 
- * @return: (int), flag that indicates if the calculation, shallbe continued
+ *  
+ * @param: (char const *argv[]), the expression that forms a calculation request  
  * 
 */
 
  
-int doCalculation(int argc, char const *argv[]);
+void  doCalculation(  char const *argv[]);
 
 
 /**
- * Function taht checks, 
+ * Function that checks, 
  * if the given operator, does match one of 
  * the expected ones ( + , / , - , *)
  * 
- * @param (char),  operator to check 
- * 
+ * @param (char*), expression to check for the used operator 
  * @return (PARAMETER_STATES) , flag indicating if the certain operands are integers
 */
 
-enum  PARAMETER_STATES  checkIfOperatorMatchTheExpectedOnes(char Operator);
+enum  PARAMETER_STATES  checkIfOperatorMatchTheExpectedOnes(char* expression);
 
 
 
@@ -42,11 +39,11 @@ enum  PARAMETER_STATES  checkIfOperatorMatchTheExpectedOnes(char Operator);
  * if the ammount of given parameters, 
  * match the expected one
  * 
- * @param int cmdParamAmmount, ammount of read parameters
+ * @param (char*), expression to check for its parameter ammount 
  * @return (PARAMETER_STATES), flag indicating if a certain expression seems to be correctly formed
 */
 
-enum  PARAMETER_STATES checkParameterAmmount(int cmdParamAmmount);
+enum  PARAMETER_STATES checkParameterAmmount(char* expression);
 
 
 
@@ -55,13 +52,11 @@ enum  PARAMETER_STATES checkParameterAmmount(int cmdParamAmmount);
  * Function that finally solve 
  * the demanded expression 
  *  
- *  @param (int) firstOperand
- *  @param (char) Operator 
- *  @param (int) secondOperand
+ * @param (char*), expression to check for its parameter ammount 
  * 
 */
 
-void solveExpression(int firstOperand,  char Operator , int secondOperand);
+void solveExpression(char* expression);
 
 
 /**

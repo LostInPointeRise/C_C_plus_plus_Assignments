@@ -16,3 +16,43 @@ Enter <int> <op> <int>, single '0' to exit: 1 + 2 + 3 + 4
 
 Enter <int> <op> <int>, single '0' to exit: 1 + 2 + 3 4
 1 + 2 = 3 // shall be invalid input
+
+
+#############################################################
+
+
+fgets give us the opportunity to read form the stdin directly. 
+
+but we have to keep in mind, that fgets needs to read the '\n' 
+sign that is put by the user, when he hits the "return key" , 
+otherwise, the application 
+will hang, if we try to read stdin via some loop (( *fgets(buffer, BUFFERSIZE , stdin) != '\n') ). 
+
+Additionally we need to flush the input , to ensure, the inputs will be read 
+without some kind of "interferences"
+
+#############################################################
+
+sscanf is some impprovement to its predecssor scanf... 
+
+if gives us the possibility to read some input of unknown length , and parse 
+its parameters... 
+
+but it got the sam eproblem than its predecssor
+
+Enter <int> <op> <int>, single '0' to exit: 1 + 2 + 3
+read params  3
+1 + 2 = 3
+Enter <int> <op> <int>, single '0' to exit: 1 + 2
+read params  3
+1 + 2 = 3
+
+To handle more parameters, we hav to put an Additionally operand. 
+
+If a user puts 4 , or more parameters, we can recognize it an put the 
+invalid input message.  
+
+Enter <int> <op> <int>, single '0' to exit: 1 + 2 + 3
+invalid input
+Enter <int> <op> <int>, single '0' to exit: 1 + 2
+1 + 2 = 3

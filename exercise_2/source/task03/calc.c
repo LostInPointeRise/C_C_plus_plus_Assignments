@@ -22,13 +22,12 @@ int main(int argc, char const *argv[])
     // we start the application at this point 
     CURRENT_STATE = RUNNING; 
 
-    // main loop, execution is running till the user aborts the execution 
-
     do{
 
-        CURRENT_STATE  = doCalculation(argc, argv);
+        // main loop, execution is running till the user aborts the execution 
+        doCalculation(argv);
     }
-    while(CURRENT_STATE);
+    while(RUNNING);
     
     return 0;
 }
