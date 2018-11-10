@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <jpeglib.h>
 #include <stdbool.h> 
+#include "unistd.h"
  
 /**
  * @brief Contains color data for a single pixel.
@@ -392,6 +393,8 @@ void save_jpeg(const pixel_rgb_t *pixel_data, const image_size_t size, const cha
     jpeg_destroy_compress(&jpeg_info);
 }
 
+
+
 /**
  * @brief function that shall manage the image loading and file saving 
  * @param (char *) pointer to the input file 
@@ -403,20 +406,39 @@ void save_jpeg(const pixel_rgb_t *pixel_data, const image_size_t size, const cha
 void saveFile(char *inputFile, char *outputFile, int width, int height){
 
     // we prepare some set up, for furhter processing
-
+ 
     // we initialize the struct, that sahll be adjusted later 
     image_size_t src_sz = {0, 0};
 
+   
+
     // we initialize some pointer, that shall later reserve some memeory 
     // for a image 
-    pixel_rgb_t *in;
-
+    pixel_rgb_t *in; 
+    
     // at first , we will load the image into the memory , and we willl adjsut the size 
     load_jpeg(inputFile, &in , &src_sz);
 
-    // pixel_rgb_t *in, pixel_rgb_t *out, image_size_t src_sz, image_size_t trgt_sz
-    image_size_t trgt_sz = { width, height};
-       
+    float aspected_ratio;
+
+    if(width == 0){
+
+        aspected_ratio =  (float) src_sz.width / (float) src_sz.height;
+
+        width = height * aspected_ratio;
+    }
+    else if(height == 0){
+
+        aspected_ratio = (float) src_sz.height / (float) src_sz.width;
+
+        height =  width * aspected_ratio;
+    }
+
+
+    //  
+    image_size_t trgt_sz = {  width,  height};
+
+
     pixel_rgb_t *out = calloc((size_t) width * height, sizeof(pixel_rgb_t));
  
     resize_image( in , out, src_sz, trgt_sz );
@@ -430,12 +452,15 @@ void saveFile(char *inputFile, char *outputFile, int width, int height){
  * @return integer value, that describe, if some input is valid (1 if valid, 0 if not )
 */
 
-int validateInput(int sizeParameter){
+void validateInput(int sizeParameter){
 
     // an image cannot hae a negativ dimension, or a zero
 
-    return (sizeParameter >= 1) ? 1 : 0; 
+    if(!(sizeParameter >= 1)){
 
+        printf("invalid input \n");
+        exit(1);
+    }
 }
 
 
@@ -451,44 +476,39 @@ int main(int argc, char **argv)
     int width , height = 0; 
     // we will provide a way to load parameter for input/output files 
 
-    while ((arguments = getopt(argc, argv, "i:o:w:h:")) != -1)
+    while ((arguments = getopt(argc, argv, "i:o:w::h::")) != -1)
     {
 
       switch (arguments)
-      {
+      { 
          case 'i':
             inputFile = argv[2];
             break;  /* input filename added */
-         
+          
          case 'o':
             outputFile = argv[4];        
             break; /* output filename added */
 
-        case 'w':
+          case 'w':     
             width = atoi(argv[6]);
-            break;  /*  adding width dimension, atoi will return 0, if a non numerical value was entered */
-         
-         case 'h':
-            height = atoi(argv[8]);        
-            break;  /*  adding height dimension, atoi will return 0, if a non numerical value was entered */
-            
-         default: 
+            validateInput(width);
+            break; 
+
+          case 'h':                  
+            height =  atoi(argv[6]);
+            validateInput(height);     
+            break;
+
+          default: 
             printf("invalid input \n"); 
             exit(1);
             break; /* program shall temrinate*/
+ 
+        }
       }
 
-    }
-
-    if(validateInput(width) && validateInput(height)){
-
-        saveFile(inputFile, outputFile, width, height);
-    }
-    else{
-
-        printf("invalid input \n");
-        exit(1);
-    }
-
+    saveFile(inputFile, outputFile, width, height);
+ 
+  
     return 0;
 }

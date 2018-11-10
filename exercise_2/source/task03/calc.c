@@ -11,7 +11,7 @@
  * 
  *  The program should run in a loop that is exited with a single ‘0’ in theinputline above.
  */
-
+ 
 
 int main(int argc, char const *argv[])
 { 

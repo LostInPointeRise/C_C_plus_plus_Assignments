@@ -3,7 +3,7 @@
 #include "calculator.h" 
  
 void doCalculation( char const *argv[]){
-
+ 
     
     // at first print the usage 
     printf("%s ", USAGE);

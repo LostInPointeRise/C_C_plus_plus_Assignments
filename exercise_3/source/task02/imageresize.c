@@ -71,8 +71,7 @@ void load_jpeg(const char *name, pixel_rgb_t **img, image_size_t *const size) {
   //  width = cinfo.output_width;   
   //  height = cinfo.output_height;
 
-    
-
+     
     *img = calloc((size_t) size->width * size->height, sizeof(pixel_rgb_t));
    
     pixel_rgb_t *current_pixel = *img;
@@ -244,12 +243,9 @@ void save_jpeg(const pixel_rgb_t *pixel_data, const image_size_t size, const cha
   
             ctr = ctr + 3;
         }
-          
-       
-        
+           
         row_pointer = (JSAMPROW) row;
-  
-
+   
         // ... we can save it to the output file ...
         jpeg_write_scanlines(&jpeg_info, &row_pointer, true);
     }
@@ -289,12 +285,7 @@ void saveFile(char *inputFile, char *outputFile, int width, int height){
 
     // at first , we will load the image into the memory 
     load_jpeg(inputFile, &img , &size);
-
-
-    // we will store the desired dimensions , of the output file
-  //  size.width = width;
-  //  size.height = height; 
-
+ 
     // after that, we can save the memory content to some file (specified by outputFile)
     save_jpeg(img , size, outputFile);
 }

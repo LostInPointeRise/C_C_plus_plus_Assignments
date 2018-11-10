@@ -1,10 +1,10 @@
 CC = gcc
-CFLAGS = -w -g -ljpeg
+CFLAGS = -w -g
 OBJS = imageresize.o
 
  
 all: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o imageresize
+	$(CC) $(CFLAGS) $(OBJS) -o imageresize  -ljpeg
 
 imageresize.o: imageresize.c
 	$(CC) $(CFLAGS) -c imageresize.c

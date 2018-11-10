@@ -1,10 +1,10 @@
 CC = gcc
-CFLAGS = -w -g -ljpeg
+CFLAGS = -w -g
 OBJS = imagecopy.o
 
  
 all: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o imagecopy
+	$(CC) $(CFLAGS) $(OBJS) -o imagecopy  -ljpeg
 
 imagecopy.o: imagecopy.c
 	$(CC) $(CFLAGS) -c imagecopy.c

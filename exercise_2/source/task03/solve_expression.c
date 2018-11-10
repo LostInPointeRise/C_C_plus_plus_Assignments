@@ -6,7 +6,7 @@ void solveExpression(char* expression){
 
     // we declare the final result 
     int result = 42; 
-
+ 
 
     /**
      * variable and pointer declaration 
