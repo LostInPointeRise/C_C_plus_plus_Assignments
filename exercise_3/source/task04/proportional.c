@@ -419,14 +419,20 @@ void saveFile(char *inputFile, char *outputFile, int width, int height){
     // at first , we will load the image into the memory , and we willl adjsut the size 
     load_jpeg(inputFile, &in , &src_sz);
 
+    // we want the same ratio in the resize processing 
+
     float aspected_ratio;
 
+    // if the width was not defined
     if(width == 0){
+
+        // we will calculate the needed height, to math the original ratio 
 
         aspected_ratio =  (float) src_sz.width / (float) src_sz.height;
 
         width = height * aspected_ratio;
     }
+    // we will do the same for the width 
     else if(height == 0){
 
         aspected_ratio = (float) src_sz.height / (float) src_sz.width;
@@ -435,7 +441,7 @@ void saveFile(char *inputFile, char *outputFile, int width, int height){
     }
 
 
-    //  
+    //  after the ratio dimensions was calculated , we will put them to the size struct
     image_size_t trgt_sz = {  width,  height};
 
 

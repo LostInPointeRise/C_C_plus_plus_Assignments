@@ -4,6 +4,7 @@
 #include <jpeglib.h>
 #include <stdbool.h> 
 
+
 /**
  * @brief Contains color data for a single pixel.
  * @param (uint8_t) pixel`s  amountOfRed
@@ -50,7 +51,7 @@ typedef struct image_size_t image_size_t;
  */
 void load_jpeg(const char *name, pixel_rgb_t **img, image_size_t *const size) {
     uint8_t r, g, b;
-    
+    int width, height;
     struct jpeg_decompress_struct cinfo;
     struct jpeg_error_mgr jerr;
 
@@ -66,13 +67,17 @@ void load_jpeg(const char *name, pixel_rgb_t **img, image_size_t *const size) {
     jpeg_stdio_src(&cinfo, infile);
     (void) jpeg_read_header(&cinfo, TRUE);
     (void) jpeg_start_decompress(&cinfo);
-  
-  // the dimensions ar enow given as parameter values 
-  //  width = cinfo.output_width;   
-  //  height = cinfo.output_height;
+    
+    /**
+     * We put the demanded sizes
+     * 
+     * at the given width and heigth vaiables 
+    */
 
-     
-    *img = calloc((size_t) size->width * size->height, sizeof(pixel_rgb_t));
+    width = size->width;
+    height = size->height;
+
+    *img = calloc((size_t) width * height, sizeof(pixel_rgb_t));
    
     pixel_rgb_t *current_pixel = *img;
     if (!*img) {
@@ -80,13 +85,22 @@ void load_jpeg(const char *name, pixel_rgb_t **img, image_size_t *const size) {
         exit(1);
     }
 
-    row_stride = size->width * cinfo.output_components;
+    row_stride = width * cinfo.output_components;
     pJpegBuffer = (*cinfo.mem->alloc_sarray)
             ((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
 
-    while (cinfo.output_scanline < cinfo.output_height) {
+    // we have to figure out the correct ammount of scanlines, to be read
+    
+
+    // if the demanded ammount is higher,than the actual amount of scanlines, then 
+    // we will take the scanlines 
+    
+    int limit = (cinfo.output_height >= height ) ?  height : cinfo.output_height;
+   
+    while (cinfo.output_scanline <  limit  ){
+        
         (void) jpeg_read_scanlines(&cinfo, pJpegBuffer, 1);
-        for (int x = 0; x < size->width; x++) {
+        for (int x = 0; x < width; x++) {
             r = pJpegBuffer[0][cinfo.output_components * x];
             if (cinfo.output_components > 2) {
                 g = pJpegBuffer[0][cinfo.output_components * x + 1];
@@ -116,10 +130,9 @@ void load_jpeg(const char *name, pixel_rgb_t **img, image_size_t *const size) {
     }
 
 
-    fclose(infile);
-    (void) jpeg_finish_decompress(&cinfo);
+    fclose(infile); 
     jpeg_destroy_decompress(&cinfo);
-
+ 
 }
 
 /**
@@ -243,9 +256,12 @@ void save_jpeg(const pixel_rgb_t *pixel_data, const image_size_t size, const cha
   
             ctr = ctr + 3;
         }
-           
+          
+       
+        
         row_pointer = (JSAMPROW) row;
-   
+  
+
         // ... we can save it to the output file ...
         jpeg_write_scanlines(&jpeg_info, &row_pointer, true);
     }
@@ -264,8 +280,6 @@ void save_jpeg(const pixel_rgb_t *pixel_data, const image_size_t size, const cha
  * @brief function that shall manage the image loading and file saving 
  * @param (char *) pointer to the input file 
  * @param (char *) pointer to the output file 
- * @param (int) desired width of an output file 
- * @param (int) desired height  of an output file 
  */
 
 void saveFile(char *inputFile, char *outputFile, int width, int height){
@@ -273,22 +287,22 @@ void saveFile(char *inputFile, char *outputFile, int width, int height){
     // we prepare some set up, for furhter processing
 
     // we initialize the struct, that sahll be adjusted later 
-    image_size_t size = {0, 0};
+    image_size_t size = {width, height};
 
     // we initialize some pointer, that shall later reserve some memeory 
     // for a image 
     pixel_rgb_t *img;
 
 
-    size.height = (uint32_t) height;
-    size.width = (uint32_t) width;
-
     // at first , we will load the image into the memory 
     load_jpeg(inputFile, &img , &size);
- 
+
+
     // after that, we can save the memory content to some file (specified by outputFile)
     save_jpeg(img , size, outputFile);
 }
+
+
 
 /*
  * @brief this function shall validate some parameter, that shall describe a diemension of an output file 

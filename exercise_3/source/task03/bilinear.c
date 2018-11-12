@@ -399,7 +399,7 @@ void save_jpeg(const pixel_rgb_t *pixel_data, const image_size_t size, const cha
  * @param (int) desired width of an output file 
  * @param (int) desired height  of an output file 
  */
-
+ 
 void saveFile(char *inputFile, char *outputFile, int width, int height){
 
     // we prepare some set up, for furhter processing
