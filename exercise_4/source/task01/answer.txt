@@ -1,0 +1,29 @@
+
+1.) What are the advantages and disadvantages of the macro and function solutions?
+
+Advantages: 
+
+1.) macros offer a neat way, to use functions-like operations. 
+
+Disadvantages: 
+
+Macros are difficult to debug, because they are simply "text-replacements". 
+
+Macros do not belong to any namespace.
+A certain macro can be overwritten, by one in another section.
+
+
+2.) Why does the commented line in the code not compile? 
+
+The problem with the certain function, is that 
+it does not match a specifc signature, of the maxf function. 
+
+-> maxf(a,b+0.2), uses an integer-like value for a, and a double like value for b. 
+
+3.) Which maxf() functions are called for the maxf1-maxf3 outputs and why?
+
+maxf1 = In maxf(int) -> (a = 10, b = 22), a and b are simply integer values
+maxf2 = In maxf(double) -> (a = 10.1, b = 22.2), a and b are simply double values
+22.2
+maxf3 = In maxf(int) -> (a = 10, b = 22), a and b are simply integer values
+22

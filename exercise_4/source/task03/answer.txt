@@ -1,0 +1,88 @@
+-> What is the output of the following program? What is the error in the program?
+
+ouput is : 
+
+the poutput above is incorret, cause the bottom, does not have the expected value 2. 
+This happens cuase the foor loop iterates to 5, which is one index longer than arr.
+
+This is why " s.arr[5] = 42;" will point to the next memory place, that fits an integer. 
+cause s is a struct, and we defined the bottom variable at this position, it will gets overwritten. 
+ 
+
+-> Describe how you use gdb to find the error but without single steps (commands
+“n(next)” or “s(tep)”)! Include all gdb commands in your report.
+
+
+consider the following source code 
+
+int main(void) {
+        
+       struct stest {
+         int top;
+         int arr[5];
+         int bottom;
+        } s; 
+        
+       int i;
+       
+       s.top = 1;
+       
+       s.bottom = 2;
+       
+       for (i = 0; i <= 5; i++) {
+         s.arr[i] = 42;
+       }
+       
+       printf("top = %d, bottom = %d\n", s.top, s.bottom);
+     
+}
+
+-> We put a breakpoint at 17, 18, and 21
+
+-> We will start the debugger with run 
+
+-> The debugger will stall at the breakpoint 17
+
+-> we use x &s, to obtain the start adress of the struct. 
+
+We will get something like "0x7efff4b8:	0x00000001". 
+This is expected, cause strcuts, are just a "memory layout" for a 
+certiain group of variables. That means the variables of a struct, are just simply 
+bound to next to each other. 
+
+Because we expect an integer array, with the size of 5, and another integer value, 
+we will try to get the memory layout, of the next 7 Bytes , after the starting adress. 
+
+-> the command "x/7x &s" gives us the current memory layout: 
+
+                s.top       arr[0]      arr[1]      arr[2]
+                |           |           |           |
+                v
+0x7efff4b8:	0x00000001	0x000105e0	0x000105b8	0x00000000
+0x7efff4c8:	0x00010410	0x00000000	0x00000002
+                ^          ^            ^
+                |          |            | 
+                arr[3]    arr[4]        s.bottom 
+
+-> the command "print *(struct stest *) 0x7efff4b8" summarizes the structure, and return the certain values 
+
+$1 = {top = 1, arr = {67040, 67000, 0, 66576, 0}, bottom = 2}
+
+
+-> after that, we will continue inside the foor-loop. 
+
+The command "x/x &i" will give us the current value of the counter variable i. 
+
+If the continue the foorloop till i = 4, we will get the following structur layout: 
+
+$7 = {top = 1, arr = {42, 42, 42, 42, 42}, bottom = 2}
+
+If we continue the for loop, " s.arr[5]" will overwrite the bottom variable (see the first answer). 
+
+-> the next breakpoint at "  printf("top = %d, bottom = %d\n", s.top, s.bottom);" gives us now the incorrect 
+variable value 
+
+-> the command "x/x &s.bottom" gives us the following result: 
+
+0x7efff4d0:	0x0000002a, which corresponds to a 42 in the value bottom (0000002a, id the hex representation of 42 in int)
+
