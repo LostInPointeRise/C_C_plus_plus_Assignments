@@ -8,7 +8,7 @@ namespace compare
      * @param (int) a, first value needed for the comparison
      * @param (int) b, second value needed for the comparison
      * 
-     * @return (double) the bigger of the above arguments
+     * @return (int) the bigger of the above arguments
     */
 
     int maxf(int a, int b){};
