@@ -1,0 +1,23 @@
+-> In my solution, i did insert an object, before the main method, to ensure the 
+message  "---start---" will be prompted. 
+
+// Example in code 
+
+-> HelloWorldChanger change;
+
+int main(void) {
+    
+    std::cout << "Hello world!" << std::endl;
+    return 0;    
+}
+
+-> The message is prompted, cause  variables defined outside of functions,  
+like global variables, are is initialized before main() is invoked.
+
+-> If we take a look at the constrcutor definition of  HelloWorldChanger, 
+we can se, that it calls a certain "prompting" Method. 
+
+-> Because , the lifecycle, of the specific HelloWorldChanger object, ends at the 
+end of the main method, a destructor-method, of the class can be invoked by the compiler. 
+
+Thats why  ~HelloWorldChanger() contains a method that shall print the message "---end---"
