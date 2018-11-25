@@ -1,6 +1,6 @@
 #include <cstring>
 #include <stdio.h>
-#include <iostream>
+#include <iostream> 
 #include "stack.hpp"
 
 using namespace std;
@@ -15,11 +15,13 @@ Stack::Stack(int size){
     
     this->size = size; 
 
-    printf("Ctor: I am allocating space for %d integers\n", this->size);
+    //printf("Ctor: I am allocating space for %d integers\n", this->size);
 
     // when we allocate the memory, top and base ptr, point to the same address
     this->ptr_to_top = this->ptr_to_stack = new int[this->size];
 
+    // we initalize a seed value needed for the random values
+    this->seed = rand();
 };
 
 /**
@@ -33,7 +35,7 @@ Stack::Stack(const Stack &other){
 
     // we must allocate some new memory, to store the values, thsat will be copied from other 
     this->ptr_to_top = this->ptr_to_stack = new int[this->size];
-     
+    
     // then we will copy the values from  the other stack on our current stack
     memcpy(this->ptr_to_stack, other.ptr_to_stack, other.length() * sizeof(int));
  
@@ -41,7 +43,10 @@ Stack::Stack(const Stack &other){
     // show to the correct place
     this->ptr_to_top += other.length();
 
-    printf("Cctor called \n");
+    // we add the seed, from the moved object
+    this->seed = other.seed;
+
+    //printf("Cctor called \n");
 };
 
 
@@ -50,39 +55,39 @@ Stack::Stack(const Stack &other){
  */
 
 Stack::Stack(Stack &&other){
-
-    // we must save the size of the capacity, from the other Stack, to the callee stack 
-    this->size = other.size;
  
+    // we must save the size of the capacity, from the other Stack, to the callee stack 
+    this->size = other.size; 
+
     // we must allocate some new memory, to store the values, thsat will be copied from other 
     this->ptr_to_top = this->ptr_to_stack = new int[this->size];
 
     // then we will copy the values from  the other stack on our current stack
     memcpy(this->ptr_to_stack, other.ptr_to_stack, other.length() * sizeof(int));
  
-    // after we reallocate the memory, we have to let the top, of the new stack
-    // show to the correct place
     this->ptr_to_top += other.length();
  
-    // we deallocate memory, that is not needed anymore 
+    this->seed = other.seed;
+
     delete[] other.ptr_to_stack;
 
-    // we put the default values to the moved object 
+    // we put the default values to the moved object
     other.size = 10; 
 
     other.ptr_to_stack = other.ptr_to_top = nullptr;
 
-    printf("Mctor called \n");
+    other.seed = rand(); 
+
+    //printf("Mctor called \n");
 };
 
 
 /**
  * @brief implementation of copy assignment operator
  */
- 
+
 Stack& Stack::operator=(Stack const  &other){
 
-    // we deallocate memory, that is not needed anymore 
     delete[] this->ptr_to_stack;
 
     // we must save the size of the capacity, from the other Stack, to the callee stack 
@@ -98,7 +103,9 @@ Stack& Stack::operator=(Stack const  &other){
     // show to the correct place
     this->ptr_to_top += other.length();
 
-    printf("Cop= called\n");
+    this->seed = other.seed;
+
+    //printf("Cop= called\n");
 
     return *this;
 }
@@ -110,9 +117,8 @@ Stack& Stack::operator=(Stack const  &other){
 
 Stack& Stack::operator=(Stack &&other){
 
-    // we deallocate memory, that is not needed anymore 
     delete[] this->ptr_to_stack;
-   
+
     // we must save the size of the capacity, from the other Stack, to the callee stack 
     this->size = other.size;
 
@@ -122,10 +128,10 @@ Stack& Stack::operator=(Stack &&other){
     // then we will copy the values from  the other stack on our current stack
     memcpy(this->ptr_to_stack, other.ptr_to_stack, other.length() * sizeof(int));
  
-    // after we reallocate the memory, we have to let the top, of the new stack
-    // show to the correct place
     this->ptr_to_top += other.length();
   
+    this->seed = other.seed;
+
     // we deallocate memory, that is not needed anymore 
     delete[] other.ptr_to_stack;
 
@@ -134,7 +140,10 @@ Stack& Stack::operator=(Stack &&other){
 
     other.ptr_to_stack = other.ptr_to_top = nullptr;
 
-    printf("Mop= called \n");
+    // we need to initialize a new seed 
+    other.seed = rand(); 
+
+    //printf("Mop= called \n");
 
     return *this;
 }
@@ -147,8 +156,7 @@ Stack& Stack::operator=(Stack &&other){
 Stack::~Stack(){
     // we deallocate memory, that is not needed anymore 
     delete[] this->ptr_to_stack;
-    
-    printf("Dtor: I am deallocating a stack of %d integers filled with %d values.\n", this->size, this->length());
+    //printf("Dtor: I am deallocating a stack of %d integers filled with %d values.\n", this->size, this->length());
 }
 
 /**
@@ -212,8 +220,7 @@ int Stack::pop(){
         return 0; 
     }
 }
-
-
+ 
 
 /**
  * @brief implementation of the is_full() function
@@ -255,4 +262,36 @@ void Stack::show() const{
     }
 
     printf("\n"); 
+}
+
+void Stack::load(){
+
+    // now we will ceate the Random Numbers , that shall fill the stack
+    this->createRandomNumbers();
+    
+    // we need to let the top pointer, point to the top of the stack
+    this->ptr_to_top += this->size;
+}
+
+
+void Stack::createRandomNumbers()
+{
+    for(int ctr = 0; ctr < this->size ; ctr +=1){
+     
+        /**
+         * default PRNG Generator, implemented from 
+         * https://de.wikipedia.org/wiki/Xorshift
+        */
+
+        int current_seed = this->seed;
+        
+        current_seed ^= (current_seed  << 13);
+        current_seed ^= (current_seed  >> 17);
+        current_seed ^= (current_seed  << 5);
+
+        current_seed ^= (current_seed  << 3);
+
+        // after the current seed is calculated, it must be put on to the stack
+        this->ptr_to_stack[ctr] =  this->seed = current_seed;
+    } 
 }

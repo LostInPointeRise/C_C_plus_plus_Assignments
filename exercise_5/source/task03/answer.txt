@@ -1,0 +1,8 @@
+Is there a difference in the results? If so, say what and why in your report?
+
+-> the "Move assignment test" is slightly faster than the "Copy assignment test". 
+This happens , because "Move"-Operations, do not need to take care of the state of the object, 
+which is used to retrieve values from. 
+
+To be more precisely, all resources, claimed, by the object that will be "moved" to another one, 
+gets freed. 

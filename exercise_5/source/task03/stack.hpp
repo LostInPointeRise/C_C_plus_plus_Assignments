@@ -6,7 +6,15 @@
 // Stack abstract data type definition
 class Stack {
 
+private:
+ 
+    // @brief loads the stack with random values
+    void createRandomNumbers();
+
 public:
+
+    // @brief seed value, needed for creating random values
+    int seed;
 
     // @brief maximum capacity of elements of this stack
     int size; 
@@ -29,7 +37,7 @@ public:
      * @param (Stack) other stack object, that shall be copied to the callee
     */
 
-    Stack(const Stack &other); 
+    Stack(Stack const &other); 
 
     /**
      * @brief destructor of the stack class
@@ -49,7 +57,7 @@ public:
      * @param (Stack) other stack object, that shall be copied to the callee
     */
 
-    Stack& operator=(Stack const  &other);
+    Stack& operator=(Stack const &other);
 
     /**
      * @brief move assignment operator of the Stack class 
@@ -105,6 +113,12 @@ public:
     */
 
     int length() const;
+
+    /**
+     * @brief loads the stack with random vaue, to its capacity 
+    */
+
+    void load();
 
  
 
