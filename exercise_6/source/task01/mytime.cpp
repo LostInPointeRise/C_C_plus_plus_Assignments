@@ -47,7 +47,7 @@ void MyTime::adjustTime(int hour, int minute, int second){
 
     int adjust_minute = second / 60;
 
-    int adjust_hour = hour / (minute + adjust_minute);
+    int adjust_hour = (minute + adjust_minute) / 60;
 
     // we need to adjust the time, and save it back to the internal variables
 
