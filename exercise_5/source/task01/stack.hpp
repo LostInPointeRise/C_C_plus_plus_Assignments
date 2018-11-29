@@ -15,7 +15,7 @@ public:
     int *ptr_to_stack;
 
     // @brief ptr to top element of the stack
-    int *ptr_to_top;
+    int *ptr_to_top; 
 
 
     /**
@@ -54,9 +54,17 @@ public:
     /**
      * @brief move assignment operator of the Stack class 
      * @param (Stack) other stack object, that shall be moved to the callee
-    */
+     * @return (Stack) the new assigned Stack object
+     */
 
     Stack& operator=(Stack &&other);
+
+    /**
+     * @brief equality operator of the Stack class 
+     * @param (Stack) other stack object, that shall be moved to the callee
+    */
+
+    bool operator==(Stack &other);
 
     /**
      * @brief function that returns a flag, indicationg, if the stack is full

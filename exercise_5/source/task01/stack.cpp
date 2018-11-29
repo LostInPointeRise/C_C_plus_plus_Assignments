@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "stack.hpp"
-
+ 
 using namespace std;
 
 /**
@@ -10,7 +10,7 @@ using namespace std;
  */
 
 Stack::Stack(int size){
-
+ 
     // we must save the needed capacity of the stack for further use
     
     this->size = size; 
@@ -19,13 +19,13 @@ Stack::Stack(int size){
 
     // when we allocate the memory, top and base ptr, point to the same address
     this->ptr_to_top = this->ptr_to_stack = new int[this->size];
-
+ 
 };
 
 /**
  * @brief implementation of copy constructor 
  */
-
+ 
 Stack::Stack(const Stack &other){
 
     // we must save the size of the capacity, from the other Stack, to the callee stack 
@@ -68,7 +68,7 @@ Stack::Stack(Stack &&other){
     delete[] other.ptr_to_stack;
 
     // we put the default values to the moved object 
-    other.size = 10; 
+    other.size = 0; 
 
     other.ptr_to_stack = other.ptr_to_top = nullptr;
 
@@ -105,34 +105,60 @@ Stack& Stack::operator=(Stack const  &other){
 
 
 /**
+ * @brief implementation of the equality operator 
+ */
+
+bool Stack::operator==(Stack &other){
+    
+    /* if the ptr_to_stack is the same, we can assume, 
+    *  both Stack objects are the same 
+    *  
+    *  This shall be true for "null pointer", cause the default 
+    *  objects do not carry different information
+    */
+
+    return (other.ptr_to_stack == this->ptr_to_stack);
+}
+
+
+/**
  * @brief implementation of move assignment operator
  */
 
 Stack& Stack::operator=(Stack &&other){
 
-    // we deallocate memory, that is not needed anymore 
-    delete[] this->ptr_to_stack;
+    /* if the objects are not the smae, then we 
+    *  will move &&oher to the current object
+    *  otherwise we will return the current object
+    */
    
-    // we must save the size of the capacity, from the other Stack, to the callee stack 
-    this->size = other.size;
+    if(!(*this == other)) {
 
-    // we must allocate some new memory, to store the values, thsat will be copied from other 
-    this->ptr_to_top = this->ptr_to_stack  = new int[this->size];
+        // we deallocate memory, that is not needed anymore 
+        delete[] this->ptr_to_stack;
     
-    // then we will copy the values from  the other stack on our current stack
-    memcpy(this->ptr_to_stack, other.ptr_to_stack, other.length() * sizeof(int));
- 
-    // after we reallocate the memory, we have to let the top, of the new stack
-    // show to the correct place
-    this->ptr_to_top += other.length();
-  
-    // we deallocate memory, that is not needed anymore 
-    delete[] other.ptr_to_stack;
+        // we must save the size of the capacity, from the other Stack, to the callee stack 
+        this->size = other.size;
 
-    // we put the default values to the moved object 
-    other.size = 10; 
+        // we must allocate some new memory, to store the values, thsat will be copied from other 
+        this->ptr_to_top = this->ptr_to_stack  = new int[this->size];
+        
+        // then we will copy the values from  the other stack on our current stack
+        memcpy(this->ptr_to_stack, other.ptr_to_stack, other.length() * sizeof(int));
+    
+        // after we reallocate the memory, we have to let the top, of the new stack
+        // show to the correct place
+        this->ptr_to_top += other.length();
+    
+        // we deallocate memory, that is not needed anymore 
+        delete[] other.ptr_to_stack;
 
-    other.ptr_to_stack = other.ptr_to_top = nullptr;
+        // we put the default values to the moved object 
+        other.size = 0; 
+
+        other.ptr_to_stack = other.ptr_to_top = nullptr;
+
+    }
 
     printf("Mop= called \n");
 
