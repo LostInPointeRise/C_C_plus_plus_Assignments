@@ -21,6 +21,7 @@ private:
 
 public:
   
+
     /**
      * @brief constructor of the MyTime class
      * 
@@ -39,13 +40,49 @@ public:
      * time 
      */
     
-    operator int(); 
+    operator int() const; 
+
+    /**
+     * @brief Overload the '+' operator
+     * @param (MyTime) summand1,  (MyTime) summand2 
+     * @return (MyTime) sum
+     */
+    friend MyTime operator+(MyTime const& summand1, MyTime const& summand2);
+
+    /**
+     * @brief Overload the '+' operator
+     * @param (MyTime) summand1, (int) summand2 (seconds from 0:0:0)
+     * @return (MyTime) sum
+     */
+    friend MyTime operator+(MyTime const& summand1, int summand2);
+
+
+     /**
+     * @brief Overload the '+' operator
+     * @param (int) summand1 (seconds from 0:0:0), (MyTime) summand2 
+     * @return (MyTime) sum
+     */
+    friend MyTime operator+(int summand1 , MyTime const& summand2);
 
     /**
      * @brief Overload the '<<' operator
      */
 
     friend std::ostream& operator<<(std::ostream& os, const MyTime& time); 
+
+    /**
+     * @brief Overload the '+=' operator
+     * @param (MyTime) summand 
+     * @return (MyTime) assigned MyTime
+     */
+    MyTime& operator+=(MyTime& summand);
+
+    /**
+     * @brief Overload the '+=' operator
+     * @param (int) summand 
+     * @return (MyTime) assigned MyTime
+     */
+    MyTime& operator+=(int summand);
 
     /**
      * @brief destructor of the MyTime class
@@ -58,18 +95,6 @@ public:
      * and getSecond() return the hour, 
      * mi- nute and second of a MyTime object as int.
     */
-
-    /**
-     * @brief method, that shall form any time date, to a valid time ,
-     * if the params are incorrect 
-     * 
-     * @param (int) hour of the time
-     * @param (int) minute of the time
-     * @param (int) second of the time
-    */
-
-    void adjustTime(int hour, int minute , int second );
-
 
     // getter setter 
 

@@ -1,0 +1,7 @@
+Why is it not necessary to overload comparison operators to compare two MyTime objects? 
+
+-> It is not necessary, cause we already have added a "conversion function" that allows us, 
+to cast a MyTime Object to an in. 
+
+-> The comparison operator, works on integers, so he will use two MyTime objects as ints (internally, 
+the objects are casted to ints). 

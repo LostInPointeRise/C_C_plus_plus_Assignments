@@ -6,7 +6,7 @@ int main(void){
 
   MyTime t(0,59,121);
   std::cout << "It's " << t << std::endl;
- /* std::cout << "Hour " << t.getHour() << " Minute " << t.getMinute() << " Second " << t.getSecond() << std::endl;
+  std::cout << "Hour " << t.getHour() << " Minute " << t.getMinute() << " Second " << t.getSecond() << std::endl;
   int s = t;
   std::cout << "In seconds: " << s << std::endl;
   std::cout << "Four seconds later: " << t+4 << std::endl;
@@ -21,5 +21,6 @@ int main(void){
   t += t2;
   std::cout << "+= t2 " << t << std::endl;
   t += 3784;
-  std::cout << "+= int " << t << std::endl;*/
+  std::cout << "+= int " << t << std::endl;
+
 }

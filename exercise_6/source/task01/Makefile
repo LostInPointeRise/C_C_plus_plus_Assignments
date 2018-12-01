@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -w -g -std=c++11
 OBJS = mytime.o mytimetest.o
 
-  
+   
 all: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o mytime 
 

@@ -1,0 +1,12 @@
+Why is it better to use pre- increment/pre-decrement instead of post-increment/post-decrement operators?
+
+In my point of view "post-increment/post-decrement" are not intuitive. 
+At first one would think , that values that are  "post-increment/post-decrement", 
+would return a changed value, instead of the original one.
+
+Additionally the post-increment operator in user defined types, needs to create 
+a copy of the original object. 
+
+So this will slow down the "incrementation process", in comparision to the pre-incrementation.
+
+
