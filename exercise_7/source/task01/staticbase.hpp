@@ -6,6 +6,20 @@
 
 class StaticBase{
 
+public: 
+
+    /**
+     * @brief describes a private member int variable  
+     */
+
+    static int private_member_int_variable;
+
+    /**
+     * @brief describes the function "myFunc"
+     * @return (void) 
+     */
+
+    static void  myFunc();
 
 
 }; // end of class StaticBase 

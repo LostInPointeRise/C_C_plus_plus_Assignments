@@ -1,4 +1,5 @@
 #include <iostream>
+#include <typeinfo>
 #include "purebase.hpp" 
 
 PureBase::PureBase(){}
@@ -13,3 +14,4 @@ void PureBase::myFunc(){
           << __func__ << std::endl;
     #endif
 }
+

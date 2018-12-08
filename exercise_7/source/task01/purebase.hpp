@@ -1,7 +1,6 @@
 #ifndef PUREBASE_HPP
 #define PUREBASE_HPP
 
-
 // Declaration of class PureBase.
 // Member functions are defined in purebase.cpp
 
