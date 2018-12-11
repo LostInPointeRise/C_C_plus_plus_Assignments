@@ -1,0 +1,29 @@
+-> Run the measurements, then compare and interpret the results in your report.
+
+The virtual methods are slower than the "non-virtual" ones. 
+
+One reason is that virtual functons , respectively the pointers 
+to virtual functions , are stored in a so called "vtable". 
+
+This adds some indirection, cause any call to a virtual function, 
+needs some fetching in the "vtable". 
+
+Another reason is that a compiler does not know, which function shall be called, 
+so he cannnot perform some "optimizations" on the final binary. 
+
+-> Are there any disadvantages of the faster version compared to the slower one? 
+
+The static casting is musch faster than the slower dynamic casting. 
+
+It is faster because, the  cast is done at compile time. 
+It will just do the cast, if the types are "related" 
+
+The dynamic cast is musch slower, because, it needs to be casted in runtime. 
+The compiler uses run-time type information , to handle the cast. 
+
+Additionally the casts need to be check at runtime cause casting unrelated types leads 
+to a null pointer. 
+
+Static casts are better, but you cannot only rely on this cast. 
+
+The usage of a static cast, forces the knowlege of the type, of the casted object (or the target). 

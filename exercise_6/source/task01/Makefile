@@ -13,4 +13,4 @@ mytime.o: mytime.cpp
 	$(CC) $(CFLAGS) -c mytime.cpp
 
 clean:
-	rm mytimetest.o mytime.o mytime
+	rm mytimetest.o mytime.o mytime 

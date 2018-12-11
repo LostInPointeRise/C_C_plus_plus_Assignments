@@ -6,8 +6,7 @@ VirtBase::VirtBase(){}
  
 /**
  * @brief definition of nvFunc()
-*/
- 
+*/ 
 void VirtBase::nvFunc(){
 
      // incrementing private_member_int_variable
@@ -22,7 +21,7 @@ void VirtBase::nvFunc(){
 /**
  * @brief definition of virtFunc()
 */
-
+ 
 
 void VirtBase::virtFunc(){
 

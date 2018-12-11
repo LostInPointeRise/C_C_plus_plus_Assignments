@@ -3,7 +3,7 @@
 #include "purebase.hpp" 
 
 PureBase::PureBase(){}
-
+ 
 void PureBase::myFunc(){
 
     // incrementing private_member_int_variable

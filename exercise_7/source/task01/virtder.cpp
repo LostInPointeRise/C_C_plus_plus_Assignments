@@ -5,8 +5,8 @@
 VirtDer::VirtDer(){}
 
 void VirtDer::myFunc(){
-
  
+  
     // incrementing private_member_int_variable
     this->private_member_int_variable++;
 

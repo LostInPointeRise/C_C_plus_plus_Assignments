@@ -1,6 +1,6 @@
 #ifndef VIRTDER_HPP
 #define VIRTDER_HPP
-
+ 
 #include "virtbase.hpp"
 
 // Declaration of class VirstBase.

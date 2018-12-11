@@ -1,0 +1,14 @@
+Called 8PureBase::myFunc
+Called 8PureBase::myFunc
+Called 8VirtBase::nvFunc
+Called 8VirtBase::virtFunc
+Called 8VirtBase::nvFunc
+Called 8VirtBase::virtFunc
+Called 7VirtDer::myFunc
+Called 7VirtDer::nvFunc
+Called 7VirtDer::virtFunc
+Called 7VirtDer::myFunc
+Called 7VirtDer::nvFunc
+Called 7VirtDer::virtFunc
+Called 7VirtDer::nvFunc
+Called 7VirtDer::virtFunc
