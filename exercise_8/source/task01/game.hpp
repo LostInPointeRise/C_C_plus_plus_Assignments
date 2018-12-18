@@ -13,11 +13,16 @@ void doGaming();
 /**
  * @brief function that reads the demanded game mode form the use
  * @param int amount of input arguments
- * @param (char const* []) input arguments
  * @return (char*), pointer to the expression to solve
 */
 int readFromCommandLine();
  
+
+/**
+ * @brief function that starts a Game between a human and another human
+*/
+void startGameBetweenHumanAndHuman();
+
 
 #endif  // end of class Game
  

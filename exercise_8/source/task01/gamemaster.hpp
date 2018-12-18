@@ -15,7 +15,7 @@ class GameMaster{
         /**
          * @brief (Player*) current round of the Game
          */
-        int round = 1; 
+        int round; 
 
         /**
          * @brief (Player*) player1 of the GameMaster 
@@ -50,6 +50,11 @@ class GameMaster{
          * @brief function, that determines the current player
          */
         void determinecurrentPlayer(void);
+
+         /**
+         * @brief function, that reads the user actions
+         */
+        void readUserActions(void);
 
         /**
          * @brief setter method of player 1

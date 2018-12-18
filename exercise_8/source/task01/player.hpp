@@ -1,4 +1,5 @@
 #include <iostream>
+#include "gameboard.hpp"
 
 // Declaration of interface Player.
 // Member functions are defined in player.cpp
@@ -22,17 +23,16 @@ class Player{
          * @param (int) id of the player 
         */
 
-        Player(int turn);
+        Player(int _id);
  
     public: 
 
         /**
          * @brief function to do "Games" actions
          * @param (GameBoard&) Game board on which the moves are carried out
-         * 
         */
 
-        void play(GameBoard& gameBoard);
+        virtual void play(GameBoard& gameBoard) = 0;
 
 
          /**

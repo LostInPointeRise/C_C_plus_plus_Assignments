@@ -16,6 +16,34 @@ class GameBoard {
 
         int size; 
 
+        /**
+         * @brief pointer to the matrix, that 
+         *        containing the moves
+        */
+
+        char **matrix;
+
+        /**
+         * @brief function that initialize the moves-Matrix
+         * @param (int) _size of the Matrix (Column/Row)
+        */
+
+        void initializeMatrix(int _size);
+
+
+        /**
+         * @brief variable indicating the player that did the last move
+        */
+
+        int lastPlayerId; 
+
+
+        /**
+         * @brief variable that describes the number of 
+         *        fields that are occupied
+        */
+
+        int choosenFields = 0;
 
     public: 
 
@@ -23,7 +51,7 @@ class GameBoard {
          * @brief constructor of the GameBoard
          * @param (int) size of the GameBoard
         */
-        GameBoard(int size);
+        GameBoard(int _size = 3);
 
         /**
          * @brief destructor of the GameBoard
@@ -65,12 +93,11 @@ class GameBoard {
         */
         bool hasAvailableMoves();
 
-
         /**
          * @brief Overload the '<<' operator
         */
 
         friend std::ostream& operator<<(std::ostream& os, const GameBoard& gameboard); 
-
+ 
 };
 #endif // end of class GameBoard 

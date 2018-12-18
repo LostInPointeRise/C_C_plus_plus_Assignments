@@ -2,7 +2,7 @@
 /*  
  * @brief "Choose Game Mode" Message
  */
-
+ 
 static char const Choose_Game_Mode[] =  "Choose your game mode.";
 
 /* 
@@ -28,6 +28,13 @@ static char const EXIT_PROGRAM[] = "(3) Exit Program";
  */
 
 static char const Invalid_Input[] = "Invalid Input";
+
+/* 
+ * @brief "Invalid field selection" Message
+ */
+
+static char const Invalid_Field_Selection[] = "Invalid field selection";
+
 
 
 /**

@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -w -g -std=c++11
-OBJS = game.o tictactoe.o
+OBJS = player.o humanplayer.o gameboard.o gamemaster.o game.o tictactoe.o
 
    
 all: $(OBJS)
@@ -12,5 +12,17 @@ tictactoe.o: tictactoe.cpp
 game.o: game.cpp
 	$(CC) $(CFLAGS) -c game.cpp
 
+gamemaster.o: gamemaster.cpp
+	$(CC) $(CFLAGS) -c gamemaster.cpp
+
+gameboard.o: gameboard.cpp
+	$(CC) $(CFLAGS) -c gameboard.cpp
+
+humanplayer.o: humanplayer.cpp
+	$(CC) $(CFLAGS) -c humanplayer.cpp
+
+player.o: player.cpp
+	$(CC) $(CFLAGS) -c player.cpp
+
 clean:
-	rm game.o tictactoe.o tictactoe
+	rm player.o humanplayer.o gameboard.o gamemaster.o game.o tictactoe.o tictactoe

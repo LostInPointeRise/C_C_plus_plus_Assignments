@@ -1,6 +1,8 @@
 #include <iostream>
 #include "game.hpp"
 #include "constants.hpp"  
+#include "humanplayer.hpp"
+#include "gamemaster.hpp"
 #include "stdlib.h" 
 #include "stdio.h"
 
@@ -21,15 +23,15 @@ void doGaming(){
 
     // print the "Exit Program" Message
     cout << EXIT_PROGRAM << endl; 
-
+startGameBetweenHumanAndHuman();
     // after the user has put something... 
 
     // we read the parameter from the console
-    APPLICATION_STATES choosen_State =  static_cast<APPLICATION_STATES>(readFromCommandLine());
+  /*  APPLICATION_STATES choosen_State =  static_cast<APPLICATION_STATES>(readFromCommandLine());
     
     switch(choosen_State) {
-
-        case GAME_BETWEEN_HUMAN_AND_HUMAN : cout << "Not implemented yet" << endl;
+ 
+        case GAME_BETWEEN_HUMAN_AND_HUMAN : startGameBetweenHumanAndHuman();
              break; 
     
         case GAME_BETWEEN_HUMAN_AND_COMPUTER_RANDOM : cout << "Not implemented yet" << endl;
@@ -42,7 +44,7 @@ void doGaming(){
                 // acessed if a user did an invalid input
                 cout << Invalid_Input << endl; 
                 break;
-    }     
+    }     */
 }
 
 int readFromCommandLine(){
@@ -86,3 +88,21 @@ int readFromCommandLine(){
 }
 
  
+void startGameBetweenHumanAndHuman(){
+
+     HumanPlayer player1(1); 
+     HumanPlayer *ptr_to_player1 = &player1;
+
+     HumanPlayer player2(2);
+     HumanPlayer *ptr_to_player2 = &player2;
+
+     GameBoard gameBoard(3); 
+
+     GameMaster gameMaster;
+
+     gameMaster.setplayer1(ptr_to_player1);
+     gameMaster.setplayer2(ptr_to_player2);
+     gameMaster.setgameboard(gameBoard);
+
+     gameMaster.start();
+}
