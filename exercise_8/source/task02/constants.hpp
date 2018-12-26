@@ -56,8 +56,6 @@ static char const Invalid_Field_Selection[] = "Invalid field selection";
 
 static int const DRAW_CODE = 0;
 
-
-
 /**
  * enum indicating 
  * the state of the application
@@ -73,6 +71,18 @@ enum APPLICATION_STATES {
     GAME_BETWEEN_COMPUTER_MINIMAX_AND_BETWEEN_COMPUTER_MINIMAX = 4,
     EXIT = 5, 
     INVALID_INPUT = 42
+};
+
+
+/**
+ * enum indicating 
+ * the kind of computer player
+*/
+
+enum PLAYER {
+
+    MAX = 0, 
+    MIN = 1
 };
 
 

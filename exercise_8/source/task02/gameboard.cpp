@@ -1,9 +1,10 @@
 #include "gameboard.hpp"
 #include "constants.hpp"
+
 #include <iostream>
 #include <iomanip>
 #include <string>
- 
+
 #define PLAYER_1  1
 #define PLAYER_2  2
 
@@ -12,7 +13,7 @@
  
 #define FIELD_NOT_SET ' '
 
-using namespace std; 
+using namespace std;  
 
 GameBoard::GameBoard(int _size){
     size = _size; 
@@ -23,6 +24,33 @@ GameBoard::GameBoard(int _size){
 GameBoard::~GameBoard(){
     
 }
+
+/**
+ * @brief implementation of copy constructor 
+ */
+ 
+GameBoard::GameBoard(const GameBoard &other){
+
+    //this->matrix = other.matrix; 
+
+    this->size = other.size;
+
+    initializeMatrix(this->size);
+
+
+    for(int row = 0 ; row < this->size ; row += 1){
+        for(int column = 0 ; column < this->size ; column += 1){
+            this->matrix[row][column] = other.matrix[row][column];
+        }
+    }
+
+
+    this->choosenFields = other.size; 
+
+    this->lastPlayerId = other.lastPlayerId; 
+
+};
+
 
 void GameBoard::initializeMatrix(int _size){
 
@@ -73,20 +101,16 @@ int GameBoard::getWinner(){
         for(int column = 0; column < size; column +=1){
 
                 row_CurrentSum += static_cast<int>(matrix[row][column]) * (column + 1);
-                cout << row_CurrentSum<< " " << Player_1_WinningSum << " " << Player_2_WinningSum << endl; 
-                column_CurrentSum += static_cast<int>(matrix[column][row]) * (row + 1);
-                cout << column_CurrentSum << " " << Player_1_WinningSum << " " << Player_2_WinningSum << endl; 
+                column_CurrentSum += static_cast<int>(matrix[column][row]) * (column + 1);
                 diagonal_CurrentSum += static_cast<int>(matrix[column][column]) * (column + 1);
-                cout << diagonal_CurrentSum << " " << Player_1_WinningSum << " " << Player_2_WinningSum << endl;
                 mirrored_diagonal_CurrentSum += static_cast<int>(matrix[column][(size - 1) - column]) * (column + 1);             
-                cout << mirrored_diagonal_CurrentSum  << " " << Player_1_WinningSum << " " << Player_2_WinningSum << endl;
         }
 
         if(!(((row_CurrentSum != Player_1_WinningSum) && (column_CurrentSum != Player_1_WinningSum)
-                && (diagonal_CurrentSum != Player_1_WinningSum) && (mirrored_diagonal_CurrentSum  != Player_1_WinningSum)) 
+                && (diagonal_CurrentSum != Player_1_WinningSum) && (diagonal_CurrentSum != Player_1_WinningSum)) 
                     &&
             ((row_CurrentSum != Player_2_WinningSum) &&  (column_CurrentSum != Player_2_WinningSum)
-                && (diagonal_CurrentSum != Player_2_WinningSum) && (mirrored_diagonal_CurrentSum  != Player_2_WinningSum)) ))
+                && (diagonal_CurrentSum != Player_2_WinningSum) && (diagonal_CurrentSum != Player_2_WinningSum)) ))
         {
          
             return lastPlayerId;
@@ -108,6 +132,25 @@ void GameBoard::insert(int playerId, int x_coordinate, int y_coordinate){
     // we need to set the id of the player , who did the current move
     lastPlayerId = playerId;
 }
+
+list<Field> GameBoard::getListOfFreeFields(){
+  
+   list <Field> list_of_free_fields; 
+
+    for(int row = 0; row < size ; row += 1){
+        for(int column = 0; column < size ;  column += 1){
+            if(((matrix[row][column]) == FIELD_NOT_SET)){
+
+                Field field(row, column);
+
+                list_of_free_fields.push_back(field);
+            }
+        }
+    }
+
+    return list_of_free_fields; 
+}
+
  
 bool GameBoard::isFree(int x_coordinate, int y_coordinate){
 

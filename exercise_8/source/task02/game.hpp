@@ -23,9 +23,16 @@ int readFromCommandLine();
 */
 void startGameBetweenHumanAndHuman();
 
-
+/**
+ * @brief function that starts a Game between a human and a computer in random mode
+*/
 void startGameBetweenHumanAndComputerRandom();
 
+/**
+ * @brief function that starts a Game between a human and a computer in minimax mode
+*/
+void startGameBetweenHumanAndComputerMinimax();
 
+void startGameBetweenComputerAndComputerMinimax();
 #endif  // end of class Game
  

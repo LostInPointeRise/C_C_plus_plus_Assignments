@@ -1,7 +1,9 @@
 #include <iostream>
 
+#include "constants.hpp"
 #include "player.hpp"
 #include "mode.hpp"
+#include "score.hpp"
  
 // Declaration of class ComputerPlayer.
 // Member functions are defined in ComputerPlayer.cpp
@@ -37,8 +39,7 @@ class ComputerPlayer : public Player{
 
         void play(GameBoard& gameBoard);
 
-
-
+ 
         /**
          * @brief function needed to read the cordinates of the gameboard moves
          * @param (string) questionedIndex that is questioned, can be row or column
@@ -46,6 +47,16 @@ class ComputerPlayer : public Player{
          */
          
         int read_index(std::string questionedIndex);
+
+
+        /**
+         * @brief function that calculates the minimax algorithm
+         * @param (GameBoard) gameBoard where the moves should taken on
+         * @param (int) depth of the algorithm 
+         * @param (PLAYER) player enum describing the acteur in the minimax algorithm
+         */
+
+        Score minimax(GameBoard gmeBoard , int depth, PLAYER player);
 
 };
 #endif  // end of class ComputerPlayer

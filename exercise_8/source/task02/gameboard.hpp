@@ -1,4 +1,7 @@
 #include <iostream>
+#include "field.hpp"
+
+#include <list>  
 
 // Declaration of class GameBoard.
 // Member functions are defined in gameboard.cpp
@@ -8,7 +11,7 @@
 
 class GameBoard {
 
-    private: 
+     public: 
 
         /**
          * @brief size of the GameBoard
@@ -45,8 +48,6 @@ class GameBoard {
 
         int choosenFields = 0;
 
-    public: 
-
         /**
          * @brief constructor of the GameBoard
          * @param (int) size of the GameBoard
@@ -57,6 +58,14 @@ class GameBoard {
          * @brief destructor of the GameBoard
         */
         ~GameBoard();
+
+         /**
+         * @brief copy constructor  of the Stack class 
+         * @param (Stack) other stack object, that shall be copied to the callee
+        */
+
+        GameBoard(const GameBoard &other); 
+
 
         /**
          * @brief function to do actions on the GameBoard
@@ -73,6 +82,14 @@ class GameBoard {
          * @return (bool) flag indicating if a certain field was not set yet 
         */
         bool isFree(int x_coordinate, int y_coordinate);
+
+        /**
+         * @brief function that returns, a list containing the fields that are not set
+         * @return (list<Field>) list of free fields 
+        */
+        std::list<Field> getListOfFreeFields();
+
+
 
         /**
          * @brief function that shows the size of the GameBoard

@@ -2,7 +2,6 @@
 #include <stdlib.h> 
 #include "mode.hpp"
 #include "game.hpp"
-#include "constants.hpp"  
 #include "humanplayer.hpp"
 #include "computerplayer.hpp"
 #include "gamemaster.hpp" 
@@ -20,10 +19,10 @@ void doGaming(){
     // print the "Human vs. Human Game Mode" Message
     cout << Human_vs_Human_Mode << endl;
 
-     // print the "Human vs. Computer (Random) Game Mode" Message
-     cout << Human_vs_Computer_Minimax_Mode << endl; 
+    // print the "Human vs. Computer (Random) Game Mode" Message
+    cout << Human_vs_Computer_Minimax_Mode << endl; 
 
-     // print the "Human vs. Computer (Minimax) Game Mode" Message
+    // print the "Human vs. Computer (Minimax) Game Mode" Message
     cout << Human_vs_Computer_Random_Mode << endl; 
 
     // print the "Computer (Minimax) vs. Computer (Minimax)  Game Mode" Message
@@ -45,6 +44,11 @@ void doGaming(){
         case GAME_BETWEEN_HUMAN_AND_COMPUTER_RANDOM : startGameBetweenHumanAndComputerRandom();
              break;
 
+        case GAME_BETWEEN_HUMAN_AND_COMPUTER_MINIMAX : startGameBetweenHumanAndComputerMinimax();
+             break;
+
+        case GAME_BETWEEN_COMPUTER_MINIMAX_AND_BETWEEN_COMPUTER_MINIMAX : startGameBetweenComputerAndComputerMinimax();
+               break;
         case EXIT :  exit(0);
              break;
              
@@ -122,6 +126,48 @@ void startGameBetweenHumanAndComputerRandom(){
      HumanPlayer *ptr_to_player1 = &player1;
 
      ComputerPlayer player2(2, Mode::RANDOM);
+     ComputerPlayer *ptr_to_player2 = &player2;
+
+     GameBoard gameBoard(3); 
+
+     GameMaster gameMaster;
+
+     gameMaster.setplayer1(ptr_to_player1);
+     gameMaster.setplayer2(ptr_to_player2);
+  
+    
+     gameMaster.setgameboard(gameBoard);
+
+     gameMaster.start();
+}
+
+void startGameBetweenHumanAndComputerMinimax(){
+
+     HumanPlayer player1(1); 
+     HumanPlayer *ptr_to_player1 = &player1;
+
+     ComputerPlayer player2(2, Mode::MINIMAX);
+     ComputerPlayer *ptr_to_player2 = &player2;
+
+     GameBoard gameBoard(3); 
+
+     GameMaster gameMaster;
+
+     gameMaster.setplayer1(ptr_to_player1);
+     gameMaster.setplayer2(ptr_to_player2);
+  
+    
+     gameMaster.setgameboard(gameBoard);
+
+     gameMaster.start();
+}
+
+void startGameBetweenComputerAndComputerMinimax(){
+
+     ComputerPlayer player1(2, Mode::MINIMAX);
+     ComputerPlayer *ptr_to_player1 = &player1;
+
+     ComputerPlayer player2(2, Mode::MINIMAX);
      ComputerPlayer *ptr_to_player2 = &player2;
 
      GameBoard gameBoard(3); 
