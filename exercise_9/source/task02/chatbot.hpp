@@ -1,6 +1,8 @@
-#include <string>
+#include <string.h>
+#include <mutex>
+#include <vector>
 #include <iostream>
-
+#include <atomic>
 
 using namespace std; 
  
@@ -22,14 +24,20 @@ class Chat;
 class ChatBot{
 
 private:
+   
+    std::mutex msgQueueMtx;
 
+    std::vector<string> msgQueue;
 
+    std::atomic<bool> endThread;
 
 protected:
 
     string name;
 
     Chat* chat; 
+
+    virtual void processMessage(string msg)=0;
 
 public: 
 
